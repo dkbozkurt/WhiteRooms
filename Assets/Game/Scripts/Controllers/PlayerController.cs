@@ -1,66 +1,51 @@
-// Dogukan Kaan Bozkurt
-//      github.com/dkbozkurt
 
+using System;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.Scripts.Controllers
 {
-    /// <summary>
-    /// Attach script onto object that gonna be moved.
-    ///
-    /// Use with "CamMouseRotation.cs" to rotate camera with mouse movement.
-    /// 
-    /// Ref : https://www.youtube.com/watch?v=7kGCrq1cJew
-    /// </summary>
-    
     public class PlayerController : MonoBehaviour
     {
-        private float _playerVerticalInput;
-        private float _playerHorizontalInput;
+        [SerializeField] private Transform _playerCamera;
+        [SerializeField] private Image _crosshair;
+        public LayerMask _detectionLayerMask;
 
-        private Vector3 _forwardRelativeVerticalInput;
-        private Vector3 _rightRelativeVerticalInput;
-        private Vector3 cameraRelativeMovement;
+        private bool CanDetectButtons = true;
 
-        private Camera _mainCam;
-
-        private void Awake()
+        private void Start()
         {
-            _mainCam= Camera.main;
+            SetButtonDetection(true);
         }
 
         private void Update()
         {
-            MovePlayerRelativeToCamera();
+            if (Input.GetKeyDown(KeyCode.E) && CanDetectButtons)
+            {
+                Debug.Log("sasasas");
+                SendRayAndDetect();
+            }
         }
 
-        private void MovePlayerRelativeToCamera()
+        private void SetButtonDetection(bool status)
         {
-            // Get Player Input
-            _playerVerticalInput = Input.GetAxis("Vertical");
-            _playerHorizontalInput = Input.GetAxis("Horizontal");
-            
-            // Get Camera Normalized Directional Vectors
-            Vector3 forward = _mainCam.transform.forward;
-            Vector3 right = _mainCam.transform.right;
-            
-            // If you need to remove Space.World from the Translate line apply the following steps for above lines
-            // Vector3 forward = transform.InverseTransformVector(_mainCam.transform.forward);
-            // Vector3 right = transform.InverseTransformVector(_mainCam.transform.right);
+            CanDetectButtons = status;
+        }
 
-            forward.y = 0;
-            right.y = 0;
-            forward = forward.normalized;
-            right = right.normalized;
-            
-            //Create direction-relative-input vectors
-            _forwardRelativeVerticalInput = _playerVerticalInput * forward;
-            _rightRelativeVerticalInput = _playerHorizontalInput * right;
-            
-            // Create and apply camera relative movement
-            cameraRelativeMovement = _forwardRelativeVerticalInput + _rightRelativeVerticalInput;
-            this.transform.Translate(cameraRelativeMovement,Space.World);
+        private void SendRayAndDetect()
+        {
+            var ray = new Ray(_playerCamera.position, _playerCamera.forward);
+            RaycastHit hit;
 
+            if (Physics.Raycast(ray, out hit, 100,_detectionLayerMask))
+            {
+                Debug.Log("Name : " + hit.transform.gameObject.name);
+                // if (hit.transform.gameObject.TryGetComponent(out IDetectable))
+                // {
+                //     
+                // }
+            }
         }
     }
 }
