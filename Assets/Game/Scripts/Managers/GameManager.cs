@@ -15,6 +15,9 @@ namespace Game.Scripts.Managers
 		public GameDataScriptableObject DATA;
 
 		[SerializeField] private TextMeshProUGUI _questionText;
+		
+		[Header("Sections")]
+		// tODO here put all objects in the section
 
 		[HideInInspector] public bool CanMove = false;
 		[HideInInspector] public bool CanLookAround = false;
