@@ -11,35 +11,20 @@ namespace Game.Scripts.Behaviours
 		[SerializeField] private float mouseSensitivity = 1000f;
 
 		private float yRotation = 0f;
-
-		private bool _rotationCamUseable = false;
+		
 		private void Start()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
 
-		private void OnEnable()
-		{
-			GameManager.OnGameStart += ActivateRotation;
-		}
-
-		private void OnDisable()
-		{
-			GameManager.OnGameStart -= ActivateRotation;
-		}
-
 		private void Update()
 		{
-			if(!_rotationCamUseable) return;
+			if(!GameManager.Instance.CanLookAround) return;
 
 			LookAround();	
 		}
 
-		private void ActivateRotation()
-		{
-			_rotationCamUseable = true;
-		}
 
 		private void LookAround()
 		{

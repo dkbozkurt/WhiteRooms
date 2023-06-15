@@ -17,7 +17,7 @@ namespace Game.Scripts.Helpers
         Sphere
     }
 
-    public enum Answers
+    public enum Answer
     {
         No,
         Yes
@@ -34,7 +34,7 @@ namespace Game.Scripts.Helpers
     [Serializable]
     public struct SectionInfo
     {
-        public Answers Answer;
+        public Answer Answer;
         public int ActualNumber;
         public ObjectColor TargetColor;
         public ObjectShape ShapeToFind;

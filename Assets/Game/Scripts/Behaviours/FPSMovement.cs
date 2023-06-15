@@ -1,3 +1,4 @@
+using Game.Scripts.Managers;
 using UnityEngine;
 
 namespace Game.Scripts.Behaviours
@@ -17,7 +18,11 @@ namespace Game.Scripts.Behaviours
     
         private void Update()
         {
-            Movement();
+            if (GameManager.Instance.CanMove)
+            {
+                Movement();    
+            }
+            
         }
     
         private void Movement()

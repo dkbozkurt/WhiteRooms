@@ -26,6 +26,13 @@ namespace Game.Scripts.ScriptableObjects
 
 			return question;
 		}
+
+		public int GetRandomObjectCountToSpawn(int sectionIndex)
+		{
+			int randomObjectCount = 0;
+			randomObjectCount = GameSections[sectionIndex].TotalElementCount - GameSections[sectionIndex].ActualNumber;
+			return randomObjectCount;
+		}
 		
 	}
 }
