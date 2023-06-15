@@ -1,4 +1,6 @@
+using System;
 using Cinemachine;
+using Game.Scripts.Managers;
 using UnityEngine;
 
 namespace Game.Scripts.Behaviours
@@ -17,17 +19,26 @@ namespace Game.Scripts.Behaviours
 			Cursor.visible = false;
 		}
 
+		private void OnEnable()
+		{
+			GameManager.OnGameStart += ActivateRotation;
+		}
+
+		private void OnDisable()
+		{
+			GameManager.OnGameStart -= ActivateRotation;
+		}
+
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.R))
-			{
-				_rotationCamUseable = true;
-			}
-			
-			if (_rotationCamUseable)
-			{
-				LookAround();	
-			}
+			if(!_rotationCamUseable) return;
+
+			LookAround();	
+		}
+
+		private void ActivateRotation()
+		{
+			_rotationCamUseable = true;
 		}
 
 		private void LookAround()
@@ -49,7 +60,6 @@ namespace Game.Scripts.Behaviours
 			yRotation -= mouseY;
         
 			yRotation = Mathf.Clamp(yRotation, -90f, 90f);
-			Debug.Log(yRotation);
 			_playerCamera.transform.localRotation =Quaternion.Euler(yRotation,0f,0f);
         
 		}
