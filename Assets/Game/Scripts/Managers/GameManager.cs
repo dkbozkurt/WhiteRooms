@@ -2,6 +2,7 @@ using System;
 using Game.Scripts.Behaviours;
 using Game.Scripts.Helpers;
 using Game.Scripts.ScriptableObjects;
+using TMPro;
 using UnityEngine;
 
 namespace Game.Scripts.Managers
@@ -13,9 +14,11 @@ namespace Game.Scripts.Managers
 		
 		public GameDataScriptableObject DATA;
 
-		public bool CanMove = false;
-		public bool CanLookAround = false;
-		public bool CanInteract = false;
+		[SerializeField] private TextMeshProUGUI _questionText;
+
+		[HideInInspector] public bool CanMove = false;
+		[HideInInspector] public bool CanLookAround = false;
+		[HideInInspector] public bool CanInteract = false;
 		
 		private int _sectionNumber = 0;
 		
@@ -46,6 +49,11 @@ namespace Game.Scripts.Managers
 			Debug.Log("Given answer is " + givenAnswer);
 		}
 
+		private void SetQuestionText(string str)
+		{
+			_questionText.text = str;
+		}
+
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.R))
@@ -55,6 +63,16 @@ namespace Game.Scripts.Managers
 				CanLookAround = true;
 				CanInteract = true;
 				Debug.Log(DATA.GetSectionQuestion(0));
+			}
+
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				SetQuestionText(DATA.GetSectionQuestion(-1));
+			}
+			
+			if (Input.GetKeyDown(KeyCode.Y))
+			{
+				SetQuestionText(DATA.GetSectionQuestion(0));
 			}
 		}
 	}
