@@ -15,7 +15,7 @@ namespace Game.Scripts.Behaviours
             _characterController = GetComponent<CharacterController>();
         }
     
-        private void FixedUpdate()
+        private void Update()
         {
             Movement();
         }
@@ -26,7 +26,7 @@ namespace Game.Scripts.Behaviours
             float z = Input.GetAxis("Vertical");
     
             Vector3 move =transform.right * x + transform.forward * z;
-            _characterController.Move(move * speed * Time.fixedDeltaTime);
+            _characterController.Move(move * speed * Time.deltaTime);
         }
     }
 }

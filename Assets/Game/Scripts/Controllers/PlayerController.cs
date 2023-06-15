@@ -23,7 +23,6 @@ namespace Game.Scripts.Controllers
         {
             if (Input.GetKeyDown(KeyCode.E) && CanDetectButtons)
             {
-                Debug.Log("sasasas");
                 SendRayAndDetect();
             }
         }

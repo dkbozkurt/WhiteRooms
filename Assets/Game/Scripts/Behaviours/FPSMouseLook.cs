@@ -1,5 +1,4 @@
 using Cinemachine;
-using Game.Scripts.Helpers;
 using UnityEngine;
 
 namespace Game.Scripts.Behaviours
@@ -10,7 +9,8 @@ namespace Game.Scripts.Behaviours
 		[SerializeField] private float mouseSensitivity = 1000f;
 
 		private float yRotation = 0f;
-    
+
+		private bool _rotationCamUseable = false;
 		private void Start()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
@@ -19,10 +19,17 @@ namespace Game.Scripts.Behaviours
 
 		private void Update()
 		{
-			LookAround();
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				_rotationCamUseable = true;
+			}
+			
+			if (_rotationCamUseable)
+			{
+				LookAround();	
+			}
 		}
 
-		// Looks around and rotates body.
 		private void LookAround()
 		{
 			float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -41,8 +48,8 @@ namespace Game.Scripts.Behaviours
 		{
 			yRotation -= mouseY;
         
-			// To avoid player to look all around its body along y
 			yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+			Debug.Log(yRotation);
 			_playerCamera.transform.localRotation =Quaternion.Euler(yRotation,0f,0f);
         
 		}
