@@ -58,7 +58,7 @@ namespace Game.Scripts.Managers
 			if (givenAnswer == _expectedAnswerForTheSection)
 			{
 				OnColorResetCall?.Invoke();
-				DOVirtual.DelayedCall(1f, () => NextQuestion());
+				DOVirtual.DelayedCall(0.5f, () => NextQuestion());
 				Debug.Log("true");
 				
 			}

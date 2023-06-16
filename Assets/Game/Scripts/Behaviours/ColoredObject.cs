@@ -1,6 +1,4 @@
-using System;
 using DG.Tweening;
-using Game.Scripts.Helpers;
 using Game.Scripts.Managers;
 using UnityEngine;
 
@@ -9,7 +7,7 @@ namespace Game.Scripts.Behaviours
 	public class ColoredObject : MonoBehaviour
 	{
 		private Renderer _renderer;
-		private float _materialSwapDuration = 0.2f;
+		private float _materialSwapDuration = 0.25f;
 
 		private bool IsColorChanged = false;
 		
@@ -31,8 +29,11 @@ namespace Game.Scripts.Behaviours
 		
 		private void SetColorToDefault()
 		{
+			Color targetColor = GameManager.Instance.DATA.DefaultObjectColor;
 			IsColorChanged = false;
-			_renderer.material.color = GameManager.Instance.DATA.DefaultObjectColor;
+			// _renderer.material.color = GameManager.Instance.DATA.DefaultObjectColor;
+			_renderer.DOKill();
+			_renderer.material.DOColor(targetColor,_materialSwapDuration).SetEase(Ease.Linear);
 		}
 		
 		public void SetColor(Color targetColor)
