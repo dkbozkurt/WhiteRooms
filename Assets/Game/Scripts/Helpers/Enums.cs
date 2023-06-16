@@ -1,5 +1,7 @@
 using System;
+using Game.Scripts.Behaviours;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 
 namespace Game.Scripts.Helpers
 {
@@ -36,11 +38,10 @@ namespace Game.Scripts.Helpers
         One,
         Two,
         Three,
-        Four
     }
     
     [Serializable]
-    public struct MaterialData
+    public struct ColorToSetData
     {
         public ObjectColor ObjectColorInfo;
         public Color ObjectTargetColor;
@@ -48,15 +49,29 @@ namespace Game.Scripts.Helpers
 
 
     [Serializable]
-    public struct SectionInfo
+    public struct QuestionInfo
     {
         public Answer Answer;
         public int ActualNumber;
         public ObjectColor TargetColor;
         public ObjectShape ShapeToFind;
-        public int TotalElementCount;
+        public int RandomObjectCount;
         public float Duration;
         public Door[] DoorsToOpen;
+    }
+
+    [Serializable]
+    public struct SectionProps
+    {
+        public Area AreaNumber;
+        public ShapeAndBelonginsObjects[] ShapeAndBelonginsObjectsArray;
+    }
+    
+    [Serializable]
+    public struct ShapeAndBelonginsObjects
+    {
+        public ObjectShape RepresentiveShape;
+        public ColoredObject[] ColoredObjects;
     }
 
     public class Enums : MonoBehaviour

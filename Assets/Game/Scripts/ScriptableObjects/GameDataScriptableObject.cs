@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Game.Scripts.Helpers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Scripts.ScriptableObjects
 {
@@ -11,9 +12,9 @@ namespace Game.Scripts.ScriptableObjects
 			"Find out if the following statement is true. The room will give you the answer. You only have a limited amount of time to decide. Press \"Yes\" to start.";
 
 		public Color DefaultObjectColor;
-		public MaterialData[] MaterialDatas = new MaterialData[] { };
+		public ColorToSetData[] ColorToSetDatas = new ColorToSetData[] { };
 		
-		public List<SectionInfo> GameSections = new List<SectionInfo>();
+		public List<QuestionInfo> GameQuestions = new List<QuestionInfo>();
 		
 		public string GetSectionQuestion(int sectionIndex)
 		{
@@ -24,18 +25,29 @@ namespace Game.Scripts.ScriptableObjects
 			
 			string question = "";
 
-			question = "There are " + GameSections[sectionIndex].ActualNumber.ToString() + " " +
-			           GameSections[sectionIndex].TargetColor.ToString() + " " + GameSections[sectionIndex].ShapeToFind.ToString() + "s.";
+			question = "There are " + GameQuestions[sectionIndex].ActualNumber.ToString() + " " +
+			           GameQuestions[sectionIndex].TargetColor.ToString() + " " + GameQuestions[sectionIndex].ShapeToFind.ToString() + "s.";
 
 			return question;
 		}
 
-		public int GetRandomObjectCountToSpawn(int sectionIndex)
+		public Color GetColorByColorInfo(ObjectColor targetObjectColor)
 		{
-			int randomObjectCount = 0;
-			randomObjectCount = GameSections[sectionIndex].TotalElementCount - GameSections[sectionIndex].ActualNumber;
-			return randomObjectCount;
+			for (int i = 0; i < ColorToSetDatas.Length; i++)
+			{
+				if (targetObjectColor == ColorToSetDatas[i].ObjectColorInfo)
+				{
+					return ColorToSetDatas[i].ObjectTargetColor;
+				}				
+			}
+
+			return Color.black;
 		}
+
+		// public SectionProps[] GetSectionProps()
+		// {
+		// 	
+		// }
 		
 	}
 }

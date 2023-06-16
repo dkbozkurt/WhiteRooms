@@ -9,39 +9,52 @@ namespace Game.Scripts.Behaviours
 	public class ColoredObject : MonoBehaviour
 	{
 		private Renderer _renderer;
-		private float _materialSwapDuration = 0.2f; 
+		private float _materialSwapDuration = 0.2f;
 
+		private bool IsColorChanged = false;
+		
 		private void OnEnable()
 		{
-			
+			GameManager.OnColorResetCall += ResetColor;
 		}
 
 		private void OnDisable()
 		{
-			
+			GameManager.OnColorResetCall -= ResetColor;
 		}
 
 		private void Start()
 		{
 			_renderer = GetComponent<Renderer>();
-			SetColorWithoutDelay(GameManager.Instance.DATA.DefaultObjectColor);
 		}
 		
-		// private void SetMaterial(Material targetMat)
-		// {
-		// 	_renderer.material = targetMat;
-		// }
-
-		private void SetColor(Color targetColor)
+		private void SetColorToDefault()
 		{
+			IsColorChanged = false;
+			_renderer.DOKill();
+			_renderer.material.DOColor(GameManager.Instance.DATA.DefaultObjectColor,_materialSwapDuration).SetEase(Ease.Linear);
+		}
+		
+		private void SetColorToDefaultWithoutDelay()
+		{
+			IsColorChanged = false;
+			_renderer.material.color = GameManager.Instance.DATA.DefaultObjectColor;
+		}
+
+		public void SetColor(Color targetColor)
+		{
+			IsColorChanged = true;
 			_renderer.DOKill();
 			_renderer.material.DOColor(targetColor,_materialSwapDuration).SetEase(Ease.Linear);
 		}
 
-		private void SetColorWithoutDelay(Color targetColor)
+		private void ResetColor()
 		{
-			_renderer.material.color = targetColor;
+			if(IsColorChanged == false) return;
+			SetColorToDefault();
 		}
+
+		
 		
 	}
 }
