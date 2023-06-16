@@ -26,6 +26,7 @@ namespace Game.Scripts.Behaviours
 		private void Start()
 		{
 			_renderer = GetComponent<Renderer>();
+			SetColorToDefault();
 		}
 		
 		private void SetColorToDefault()

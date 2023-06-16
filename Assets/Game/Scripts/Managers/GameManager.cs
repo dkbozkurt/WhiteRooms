@@ -173,7 +173,6 @@ namespace Game.Scripts.Managers
 					throw new ArgumentOutOfRangeException(nameof(correctObjectShape), correctObjectShape, null);
 			}
 			
-			// StartTimer AQ
 		}
 
 		private void SetObjectGroupsColors(ColoredObject[] objectsToColorSet,int[] randomIndexes,Color targetColor)
