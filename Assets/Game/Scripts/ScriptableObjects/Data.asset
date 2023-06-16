@@ -35,4 +35,4 @@ MonoBehaviour:
     TargetColor: 0
     ShapeToFind: 0
     RandomObjectCount: 2
-    Duration: 30
+    Duration: 5

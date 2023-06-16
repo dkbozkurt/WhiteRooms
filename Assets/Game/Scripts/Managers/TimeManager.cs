@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,15 +11,21 @@ namespace Game.Scripts.Managers
 		public static event Action OnTimeEnd; 
 		
 		[SerializeField] private Image _timerImage;
+		[SerializeField] private RectTransform _clockTransform;
 
 		private float _time = 0f;
 		private bool _isTimerOn = false;
 
 		private float _decreamentDiv;
 
+		private void Start()
+		{
+			AnimateClockImage();
+		}
+
 		private void OnEnable()
 		{
-            
+			
 		}
 
 		private void OnDisable()
@@ -72,9 +79,14 @@ namespace Game.Scripts.Managers
 				_time = 0f;
 				_timerImage.fillAmount = 0f; 
 				
-				Debug.Log("Sure biter");
+				SceneManager.Instance.CallLoseScreen();
 				OnTimeEnd?.Invoke();
 			}
+		}
+
+		private void AnimateClockImage()
+		{
+			_clockTransform.DOLocalRotate(Vector3.forward * 10f, 3f).SetEase(Ease.Linear).SetLoops(-1, LoopType.Yoyo);
 		}
 
 		protected override void OnAwake() { }

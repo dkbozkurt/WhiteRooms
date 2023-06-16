@@ -88,8 +88,7 @@ namespace Game.Scripts.Managers
 		
 		public void RestartScene()
 		{
-			Debug.Log("sasaas");
-			// Application.LoadLevel(Application.loadedLevel);
+			Application.LoadLevel(Application.loadedLevel);
 		}
 
 		public void StartGame()

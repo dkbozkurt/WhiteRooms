@@ -54,12 +54,11 @@ namespace Game.Scripts.Managers
 
 		private void CheckAnswer(Answer givenAnswer)
 		{
-			Debug.Log("Given answer is " + givenAnswer);
+			TimeManager.Instance.PauseTimer();
 			if (givenAnswer == _expectedAnswerForTheSection)
 			{
 				OnColorResetCall?.Invoke();
 				DOVirtual.DelayedCall(0.5f, () => NextQuestion());
-				Debug.Log("true");
 				
 			}
 			else
@@ -104,6 +103,7 @@ namespace Game.Scripts.Managers
 		private void AskQuestion()
 		{
 			QuestionInfo question = DATA.GameQuestions[_questionNumber];
+			TimeManager.Instance.SetTimerAndReStart(question.Duration);
 			SetQuestionText(DATA.GetSectionQuestion(_questionNumber));
 			
 			SetPropsForQuestions(question);
