@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using Game.Scripts.Helpers;
 using Game.Scripts.Managers;
 using UnityEngine;
 
@@ -7,11 +8,16 @@ namespace Game.Scripts.Behaviours
 {
 	public class FPSMouseLook : MonoBehaviour
 	{
-		[SerializeField] private CinemachineVirtualCamera _playerCamera;
 		[SerializeField] private float mouseSensitivity = 1000f;
 
+		private Camera _mainCamera;
 		private float yRotation = 0f;
-		
+
+		private void Awake()
+		{
+			_mainCamera = Utilities.Camera;
+		}
+
 		private void Start()
 		{
 			Cursor.lockState = CursorLockMode.Locked;
@@ -45,7 +51,7 @@ namespace Game.Scripts.Behaviours
 			yRotation -= mouseY;
         
 			yRotation = Mathf.Clamp(yRotation, -90f, 90f);
-			_playerCamera.transform.localRotation =Quaternion.Euler(yRotation,0f,0f);
+			_mainCamera.transform.localRotation =Quaternion.Euler(yRotation,0f,0f);
         
 		}
 	}
