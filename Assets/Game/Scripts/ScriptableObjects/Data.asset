@@ -15,6 +15,14 @@ MonoBehaviour:
   TutorialText: Find out if the following statement is true. The room will give you
     the answer. You only have a limited amount of time to decide. Press "Yes" to
     start.
+  DefaultObjectMaterial: {fileID: 2100000, guid: 5be52b668e8f91946a0782d474e4c049, type: 2}
+  MaterialDatas:
+  - ObjectColor: 0
+    ColorsMaterial: {fileID: 2100000, guid: de7748cb374f56549bd0b7c08c13572c, type: 2}
+  - ObjectColor: 1
+    ColorsMaterial: {fileID: 2100000, guid: 284fd4f65fd4f3c43ab2038eca228f6c, type: 2}
+  - ObjectColor: 2
+    ColorsMaterial: {fileID: 2100000, guid: c95e4fc8049644a4aa16265def19b90e, type: 2}
   GameSections:
   - Answer: 1
     ActualNumber: 2

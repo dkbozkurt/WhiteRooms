@@ -30,6 +30,13 @@ namespace Game.Scripts.Helpers
         Three,
         Four
     }
+    
+    [Serializable]
+    public struct MaterialData
+    {
+        public ObjectColor ObjectColor;
+        public Material ColorsMaterial;
+    }
 
     [Serializable]
     public struct SectionInfo

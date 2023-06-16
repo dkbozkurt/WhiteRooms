@@ -9,6 +9,9 @@ namespace Game.Scripts.ScriptableObjects
 	{
 		public string TutorialText =
 			"Find out if the following statement is true. The room will give you the answer. You only have a limited amount of time to decide. Press \"Yes\" to start.";
+
+		public Material DefaultObjectMaterial;
+		public MaterialData[] MaterialDatas = new MaterialData[] { };
 		
 		public List<SectionInfo> GameSections = new List<SectionInfo>();
 		
