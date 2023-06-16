@@ -25,7 +25,7 @@ namespace Game.Scripts.ScriptableObjects
 			
 			string question = "";
 
-			question = "There are " + GameQuestions[sectionIndex].ActualNumber.ToString() + " " +
+			question = "There are " + GameQuestions[sectionIndex].QuestionNumber.ToString() + " " +
 			           GameQuestions[sectionIndex].TargetColor.ToString() + " " + GameQuestions[sectionIndex].ShapeToFind.ToString() + "s.";
 
 			return question;

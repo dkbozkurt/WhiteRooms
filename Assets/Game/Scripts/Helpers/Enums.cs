@@ -8,7 +8,7 @@ namespace Game.Scripts.Helpers
     public enum ObjectColor
     {
         Red,
-        Green,
+        Yellow,
         Blue
     }
 
@@ -37,6 +37,7 @@ namespace Game.Scripts.Helpers
     public struct QuestionInfo
     {
         public Answer Answer;
+        public int QuestionNumber;
         public int ActualNumber;
         public ObjectColor TargetColor;
         public ObjectShape ShapeToFind;
