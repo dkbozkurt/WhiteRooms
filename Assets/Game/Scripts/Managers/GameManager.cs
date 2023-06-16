@@ -64,26 +64,30 @@ namespace Game.Scripts.Managers
 			}
 			else
 			{
-				// TODO call game over here
-				Debug.Log("false");
+				SceneManager.Instance.CallLoseScreen();
 			}
-		}
-
-		private void SetQuestionText(string str)
-		{
-			_questionText.text = str;
 		}
 		
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.R))
 			{
-				OnGameStart?.Invoke();
-				StartTutorial();
-				CanMove = true;
-				CanLookAround = true;
-				CanInteract = true;
+				StartGame();
 			}
+		}
+		
+		public void StartGame()
+		{
+			OnGameStart?.Invoke();
+			StartTutorial();
+			CanMove = true;
+			CanLookAround = true;
+			CanInteract = true;
+		}
+
+		private void SetQuestionText(string str)
+		{
+			_questionText.text = str;
 		}
 
 		private void StartTutorial()
