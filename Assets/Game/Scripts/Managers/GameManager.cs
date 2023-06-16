@@ -47,7 +47,7 @@ namespace Game.Scripts.Managers
 	
 		private void Start()
 		{
-			SetColorsToDefault();
+			OnColorResetCall?.Invoke();
 		}
 
 		private void CheckAnswer(Answer givenAnswer)
@@ -55,6 +55,7 @@ namespace Game.Scripts.Managers
 			Debug.Log("Given answer is " + givenAnswer);
 			if (givenAnswer == _expectedAnswerForTheSection)
 			{
+				OnColorResetCall?.Invoke();
 				Debug.Log("true");
 				NextQuestion();
 			}
@@ -98,42 +99,91 @@ namespace Game.Scripts.Managers
 			QuestionInfo question = DATA.GameQuestions[_questionNumber];
 			SetQuestionText(DATA.GetSectionQuestion(_questionNumber));
 			
-			SetColorsForSection(question);
+			SetPropsForQuestions(question);
 			
 		}
 		
-		private void SetColorsForSection(QuestionInfo questionInfo)
+		private void SetPropsForQuestions(QuestionInfo questionInfo)
 		{
-			// int numberOfCorrectObject = questionInfo.ActualNumber;
-			// ObjectShape correctShape = questionInfo.ShapeToFind;
-			// int randomColorSetObjectCount = questionInfo.RandomObjectCount;
-			// Color targetCorrectColor = DATA.GetColorByColorInfo(questionInfo.TargetColor);
-			//
-			// int[] objectIndexArrayToSetCorrectColor = new int [questionInfo.ActualNumber];
-			//
-			// objectIndexArrayToSetCorrectColor =
-			// 	GetRandomNumberArray(_sectionProps[0].ShapeAndBelonginsObjectsArray[0].ColoredObjects.Length, numberOfCorrectObject);
-			//
-			//
-			// for (int i = 0; i < objectIndexArrayToSetCorrectColor.Length; i++)
-			// {
-			// 	Debug.Log(objectIndexArrayToSetCorrectColor[i]);
-			// 	// _sectionProps[0].ShapeAndBelonginsObjectsArray[0].ColoredObjects[i].SetColor(targetCorrectColor);
-			// }
+			_expectedAnswerForTheSection = questionInfo.Answer;
+			int actualNumber = questionInfo.ActualNumber;
+			ObjectColor targetObjectColor = questionInfo.TargetColor;
+			ObjectShape shapeToFind = questionInfo.ShapeToFind;
+			int randomObjectCount = questionInfo.RandomObjectCount;
+
+			Color targetCorrectColor = DATA.GetColorByColorInfo(targetObjectColor);
+			int[] objectIndexArrayToSetCorrectColor = new int [actualNumber];
 			
+			ColoredObject[] targetCorrectColoredObjects = GetColoredObjectByShape(shapeToFind);
+			
+			objectIndexArrayToSetCorrectColor = GetRandomNumberArray(actualNumber, targetCorrectColoredObjects.Length);
+
+			SetObjectGroupsColors(targetCorrectColoredObjects,objectIndexArrayToSetCorrectColor,targetCorrectColor);
+			
+			SetRandomColorForRest(shapeToFind, targetObjectColor, randomObjectCount);
+
+		}
+
+		private void SetRandomColorForRest(ObjectShape correctObjectShape, ObjectColor correctObjectColor,int randomObjectCount)
+		{
+			int[] randomObjectIndexGroupOne =  new int [randomObjectCount/2];
+			int[] randomObjectIndexGroupTwo =  new int [randomObjectCount/2];;
+			ObjectColor[] wrongColors = GetRandomInCorrectColors(correctObjectColor);
+			switch (correctObjectShape)
+			{
+				case ObjectShape.Pyramid:
+					randomObjectIndexGroupOne = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Cube).Length);
+					randomObjectIndexGroupTwo = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Sphere).Length);
+					
+					ColoredObject[] targetObjectGroupOne = GetColoredObjectByShape(ObjectShape.Cube);
+					ColoredObject[] targetObjectGroupTwo = GetColoredObjectByShape(ObjectShape.Sphere);
+					
+					SetObjectGroupsColors(targetObjectGroupOne,randomObjectIndexGroupOne,DATA.GetColorByColorInfo(wrongColors[0]));
+					SetObjectGroupsColors(targetObjectGroupTwo,randomObjectIndexGroupTwo,DATA.GetColorByColorInfo(wrongColors[1]));
+					break;
+				case ObjectShape.Cube:
+					
+					break;
+				case ObjectShape.Sphere:
+					
+					
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(correctObjectShape), correctObjectShape, null);
+			}
+			
+			// StartTimer AQ
+		}
+
+		private void SetObjectGroupsColors(ColoredObject[] objectsToColorSet,int[] randomIndexes,Color targetColor)
+		{
+			for (int i = 0; i < randomIndexes.Length; i++)
+			{
+				objectsToColorSet[i].SetColor(targetColor);
+			}
+		}
+
+		// 
+
+		private ColoredObject[] GetColoredObjectByShape(ObjectShape objShape)
+		{
+			for (int i = 0; i < shapeAndBelongins.Length; i++)
+			{
+				if (objShape == shapeAndBelongins[i].RepresentiveShape)
+				{
+					return shapeAndBelongins[i].ColoredObjects;
+				}
+			}
+
+			return null;
 		}
 		
-		
-		
-		
-		
-		// 
 
 		private int[] GetRandomNumberArray(int arraySize, int targetRange)
 		{
 			HashSet<int> uniqueNumbers = new HashSet<int>();
 
-			while (uniqueNumbers.Count < 3)
+			while (uniqueNumbers.Count < arraySize)
 			{
 				int randomNumber = Random.Range(0, targetRange);
 				uniqueNumbers.Add(randomNumber);
@@ -144,11 +194,25 @@ namespace Game.Scripts.Managers
 
 			return randomNumbersArray;
 		}
-		
-		private void SetColorsToDefault()
-		{
-			OnColorResetCall?.Invoke();
-		}
 
+		private ObjectColor[] GetRandomInCorrectColors(ObjectColor correctObjectColor)
+		{
+			List<ObjectColor> allObjectColors = new List<ObjectColor>();
+
+			foreach (var ColorData in DATA.ColorToSetDatas)
+			{
+				allObjectColors.Add(ColorData.ObjectColorInfo);	
+			}
+
+			allObjectColors.Remove(correctObjectColor);
+			
+			
+			ObjectColor[] wrongColors = new ObjectColor[2];
+			
+			allObjectColors.CopyTo(wrongColors);
+
+			return wrongColors;
+		}
+		
 	}
 }

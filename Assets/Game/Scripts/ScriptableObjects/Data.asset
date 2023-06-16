@@ -16,12 +16,23 @@ MonoBehaviour:
     the answer. You only have a limited amount of time to decide. Press "Yes" to
     start.
   DefaultObjectColor: {r: 1, g: 1, b: 1, a: 1}
-  ColorToSetDatas: []
+  ColorToSetDatas:
+  - ObjectColorInfo: 0
+    ObjectTargetColor: {r: 1, g: 0, b: 0, a: 1}
+  - ObjectColorInfo: 1
+    ObjectTargetColor: {r: 0.24068546, g: 1, b: 0, a: 1}
+  - ObjectColorInfo: 2
+    ObjectTargetColor: {r: 0, g: 0.59747696, b: 1, a: 1}
   GameQuestions:
   - Answer: 1
     ActualNumber: 2
     TargetColor: 2
     ShapeToFind: 0
-    RandomObjectCount: 5
+    RandomObjectCount: 4
     Duration: 30
-    DoorsToOpen: 
+  - Answer: 1
+    ActualNumber: 4
+    TargetColor: 0
+    ShapeToFind: 0
+    RandomObjectCount: 8
+    Duration: 30
