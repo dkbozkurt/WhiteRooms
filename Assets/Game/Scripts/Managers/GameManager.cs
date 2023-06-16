@@ -49,6 +49,7 @@ namespace Game.Scripts.Managers
 		private void Start()
 		{
 			OnColorResetCall?.Invoke();
+			
 		}
 
 		private void CheckAnswer(Answer givenAnswer)
@@ -72,7 +73,7 @@ namespace Game.Scripts.Managers
 		{
 			_questionText.text = str;
 		}
-
+		
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.R))
@@ -114,16 +115,14 @@ namespace Game.Scripts.Managers
 
 			Color targetCorrectColor = DATA.GetColorByColorInfo(targetObjectColor);
 			int[] objectIndexArrayToSetCorrectColor = new int [actualNumber];
-
 			ColoredObject[] targetCorrectColoredObjects = new ColoredObject[actualNumber]; 
 			targetCorrectColoredObjects = GetColoredObjectByShape(shapeToFind);
 			
 			objectIndexArrayToSetCorrectColor = GetRandomNumberArray(actualNumber, targetCorrectColoredObjects.Length);
-
+			
 			SetObjectGroupsColors(targetCorrectColoredObjects,objectIndexArrayToSetCorrectColor,targetCorrectColor);
 			
 			SetRandomColorForRest(shapeToFind, targetObjectColor, randomObjectCount);
-
 		}
 
 		private void SetRandomColorForRest(ObjectShape correctObjectShape, ObjectColor correctObjectColor,int randomObjectCount)
@@ -179,7 +178,7 @@ namespace Game.Scripts.Managers
 		{
 			for (int i = 0; i < randomIndexes.Length; i++)
 			{
-				objectsToColorSet[i].SetColor(targetColor);
+				objectsToColorSet[randomIndexes[i]].SetColor(targetColor);
 			}
 		}
 
@@ -199,17 +198,17 @@ namespace Game.Scripts.Managers
 		}
 		
 
-		private int[] GetRandomNumberArray(int arraySize, int targetRange)
+		private int[] GetRandomNumberArray(int returnArraySize, int randomIndexRange)
 		{
 			HashSet<int> uniqueNumbers = new HashSet<int>();
 
-			while (uniqueNumbers.Count < arraySize)
+			while (uniqueNumbers.Count < returnArraySize)
 			{
-				int randomNumber = Random.Range(0, targetRange);
+				int randomNumber = Random.Range(0, randomIndexRange);
 				uniqueNumbers.Add(randomNumber);
 			}
 
-			int[] randomNumbersArray = new int[arraySize];
+			int[] randomNumbersArray = new int[returnArraySize];
 			uniqueNumbers.CopyTo(randomNumbersArray);
 
 			return randomNumbersArray;
