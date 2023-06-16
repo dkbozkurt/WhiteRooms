@@ -72,16 +72,20 @@ namespace Game.Scripts.Managers
 		
 		public void CallWinScreen()
 		{
+			
 			_winScreenImage.DOColor(Color.white, _screenCallDuration).SetEase(Ease.Linear).OnComplete(() =>
 			{
+				AudioManager.Instance.StopSound(AudioName.LastTimeAudio);
 				_winScreenOpen = true;
 			});
 		}
 		
 		public void CallLoseScreen()
 		{
+			
 			_loseScreenImage.DOColor(Color.white, _screenCallDuration).SetEase(Ease.Linear).OnComplete(() =>
 			{
+				AudioManager.Instance.StopSound(AudioName.LastTimeAudio);
 				_loseScreenOpen = true;
 			});
 		}
