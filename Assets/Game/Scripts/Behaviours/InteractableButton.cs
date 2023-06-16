@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using Game.Scripts.Helpers;
+using Game.Scripts.Managers;
 using UnityEngine;
 
 namespace Game.Scripts.Behaviours
@@ -21,6 +22,7 @@ namespace Game.Scripts.Behaviours
 
 		public void OnButtonSelect()
 		{
+			AudioManager.Instance.PlaySound(AudioName.ButtonPress);
 			ButtonPressAnimation();
 			OnPlayerGiveAnswer?.Invoke(_buttonAnswer);
 		}

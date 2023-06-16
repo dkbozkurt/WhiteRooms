@@ -43,11 +43,16 @@ namespace Game.Scripts.Managers
 			if(!_isTimerOn) return;
 
 			_time -= Time.deltaTime;
+			if (_time <= 10f && !AudioManager.Instance.IsPlaying(AudioName.LastTimeAudio))
+			{
+				AudioManager.Instance.PlaySound(AudioName.LastTimeAudio);
+			}
 			UpdateTimer(_time);
 		}
 
 		public void SetTimerAndReStart(float targetDuration)
 		{
+			AudioManager.Instance.StopSound(AudioName.LastTimeAudio);
 			_time = targetDuration;
 			_decreamentDiv = targetDuration;
 			_timerImage.fillAmount = 1f;
@@ -72,6 +77,7 @@ namespace Game.Scripts.Managers
 		private void UpdateTimer(float currentTime)
 		{
 			_timerImage.fillAmount = currentTime / _decreamentDiv;
+			
 			if (_timerImage.fillAmount <= 0)
 			{
 				_isTimerOn = false;

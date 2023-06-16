@@ -6,9 +6,11 @@ namespace Game.Scripts.Managers
     [Serializable]
     public enum AudioName
     {
-        AudioName1,
-        AudioName2,
-        AudioName3
+        Background,
+        ButtonPress,
+        Correct,
+        Fail,
+        LastTimeAudio,
     }
     
     [Serializable]
@@ -27,6 +29,7 @@ namespace Game.Scripts.Managers
         private void Awake()
         {
             DontDestroyOnLoad(this);
+            PlaySound(AudioName.Background);
         }
         
         public void PlaySound(AudioName audioName)
@@ -52,6 +55,11 @@ namespace Game.Scripts.Managers
             }
 
             return null;
+        }
+
+        public bool IsPlaying(AudioName audioName)
+        {
+            return FindSound(audioName).isPlaying;
         }
 
     }

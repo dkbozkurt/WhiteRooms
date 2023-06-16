@@ -58,12 +58,14 @@ namespace Game.Scripts.Managers
 			TimeManager.Instance.PauseTimer();
 			if (givenAnswer == _expectedAnswerForTheSection)
 			{
+				AudioManager.Instance.PlaySound(AudioName.Correct);
 				OnColorResetCall?.Invoke();
 				DOVirtual.DelayedCall(0.5f, () => NextQuestion());
 				
 			}
 			else
 			{
+				AudioManager.Instance.PlaySound(AudioName.Fail);
 				SceneManager.Instance.CallLoseScreen();
 			}
 		}
