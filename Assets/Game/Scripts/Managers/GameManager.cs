@@ -5,6 +5,7 @@ using Game.Scripts.Behaviours;
 using Game.Scripts.Helpers;
 using Game.Scripts.ScriptableObjects;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -97,6 +98,11 @@ namespace Game.Scripts.Managers
 		private void NextQuestion()
 		{
 			_questionNumber++;
+			if (_questionNumber >= DATA.GameQuestions.Count)
+			{
+				SceneManager.Instance.CallWinScreen();
+				return;
+			}
 			AskQuestion();
 		}
 		
