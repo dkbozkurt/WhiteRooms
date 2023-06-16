@@ -25,21 +25,6 @@ namespace Game.Scripts.Helpers
         Yes
     }
 
-    public enum Door
-    {
-        One,
-        Two,
-        Three,
-        Four
-    }
-
-    public enum Area
-    {
-        One,
-        Two,
-        Three,
-    }
-    
     [Serializable]
     public struct ColorToSetData
     {
@@ -57,16 +42,8 @@ namespace Game.Scripts.Helpers
         public ObjectShape ShapeToFind;
         public int RandomObjectCount;
         public float Duration;
-        public Door[] DoorsToOpen;
     }
 
-    [Serializable]
-    public struct SectionProps
-    {
-        public Area AreaNumber;
-        public ShapeAndBelonginsObjects[] ShapeAndBelonginsObjectsArray;
-    }
-    
     [Serializable]
     public struct ShapeAndBelonginsObjects
     {

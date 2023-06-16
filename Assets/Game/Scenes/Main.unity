@@ -203,27 +203,13 @@ MonoBehaviour:
   CanMove: 0
   CanLookAround: 0
   CanInteract: 0
-  _sectionProps:
-  - AreaNumber: 0
-    ShapeAndBelonginsObjectsArray:
-    - RepresentiveShape: 0
-      ColoredObjects:
-      - {fileID: 2077121355}
-      - {fileID: 267671663}
-      - {fileID: 2115564618}
-      - {fileID: 124876757}
-    - RepresentiveShape: 1
-      ColoredObjects:
-      - {fileID: 2008467278}
-      - {fileID: 627851337}
-      - {fileID: 1531660648}
-      - {fileID: 247024769}
-    - RepresentiveShape: 2
-      ColoredObjects:
-      - {fileID: 1735161472}
-      - {fileID: 663925143}
-      - {fileID: 413714136}
-      - {fileID: 589541353}
+  shapeAndBelongins:
+  - RepresentiveShape: 0
+    ColoredObjects: []
+  - RepresentiveShape: 1
+    ColoredObjects: []
+  - RepresentiveShape: 2
+    ColoredObjects: []
 --- !u!1 &124876756
 GameObject:
   m_ObjectHideFlags: 0

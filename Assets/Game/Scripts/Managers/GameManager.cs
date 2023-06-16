@@ -26,9 +26,12 @@ namespace Game.Scripts.Managers
 		[HideInInspector] public bool CanInteract = false;
 
 		[Header("Sections")] 
-		[SerializeField] private SectionProps[] _sectionProps = new SectionProps[] { };
+		[SerializeField] private ShapeAndBelonginsObjects[] shapeAndBelongins = new ShapeAndBelonginsObjects[] { };
 		
-		private int _questionNumber = 0;
+		// Has to start from -1
+		private int _questionNumber = -1;
+
+		private Answer _expectedAnswerForTheSection = Answer.Yes;
 		
 		protected override void OnAwake() { }
 
@@ -50,6 +53,16 @@ namespace Game.Scripts.Managers
 		private void CheckAnswer(Answer givenAnswer)
 		{
 			Debug.Log("Given answer is " + givenAnswer);
+			if (givenAnswer == _expectedAnswerForTheSection)
+			{
+				Debug.Log("true");
+				NextQuestion();
+			}
+			else
+			{
+				// TODO call game over here
+				Debug.Log("false");
+			}
 		}
 
 		private void SetQuestionText(string str)
@@ -67,21 +80,17 @@ namespace Game.Scripts.Managers
 				CanLookAround = true;
 				CanInteract = true;
 			}
-
-			if (Input.GetKeyDown(KeyCode.Y))
-			{
-				SetQuestionText(DATA.GetSectionQuestion(0));
-			}
-
-			if (Input.GetKeyDown(KeyCode.U))
-			{
-				AskQuestion();
-			}
 		}
 
 		private void StartTutorial()
 		{
 			SetQuestionText(DATA.GetSectionQuestion(-1));
+		}
+
+		private void NextQuestion()
+		{
+			_questionNumber++;
+			AskQuestion();
 		}
 		
 		private void AskQuestion()
@@ -113,11 +122,12 @@ namespace Game.Scripts.Managers
 			// }
 			
 		}
-
-		private void CheckTheAnswer()
-		{
-			// TODO after clicking answer button hhere will be fired
-		}
+		
+		
+		
+		
+		
+		// 
 
 		private int[] GetRandomNumberArray(int arraySize, int targetRange)
 		{
@@ -139,7 +149,6 @@ namespace Game.Scripts.Managers
 		{
 			OnColorResetCall?.Invoke();
 		}
-		
-		
+
 	}
 }

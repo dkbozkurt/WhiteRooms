@@ -44,10 +44,5 @@ namespace Game.Scripts.ScriptableObjects
 			return Color.black;
 		}
 
-		// public SectionProps[] GetSectionProps()
-		// {
-		// 	
-		// }
-		
 	}
 }
