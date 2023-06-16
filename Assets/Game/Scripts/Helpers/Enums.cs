@@ -30,13 +30,22 @@ namespace Game.Scripts.Helpers
         Three,
         Four
     }
+
+    public enum Area
+    {
+        One,
+        Two,
+        Three,
+        Four
+    }
     
     [Serializable]
     public struct MaterialData
     {
-        public ObjectColor ObjectColor;
-        public Material ColorsMaterial;
+        public ObjectColor ObjectColorInfo;
+        public Color ObjectTargetColor;
     }
+
 
     [Serializable]
     public struct SectionInfo

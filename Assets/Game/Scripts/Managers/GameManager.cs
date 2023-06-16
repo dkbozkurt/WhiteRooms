@@ -20,6 +20,8 @@ namespace Game.Scripts.Managers
 		[HideInInspector] public bool CanLookAround = false;
 		[HideInInspector] public bool CanInteract = false;
 		
+		[Header("Sections")]
+		
 		private int _sectionNumber = 0;
 		
 		protected override void OnAwake() { }
@@ -70,5 +72,16 @@ namespace Game.Scripts.Managers
 				SetQuestionText(DATA.GetSectionQuestion(0));
 			}
 		}
+		
+		private void SetColorsToDefault()
+		{
+			
+		}
+		
+		private void SetColorsForSection()
+		{
+			
+		}
+		
 	}
 }
