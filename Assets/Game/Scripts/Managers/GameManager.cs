@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Game.Scripts.Behaviours;
 using Game.Scripts.Helpers;
 using Game.Scripts.ScriptableObjects;
@@ -56,8 +57,9 @@ namespace Game.Scripts.Managers
 			if (givenAnswer == _expectedAnswerForTheSection)
 			{
 				OnColorResetCall?.Invoke();
+				DOVirtual.DelayedCall(1f, () => NextQuestion());
 				Debug.Log("true");
-				NextQuestion();
+				
 			}
 			else
 			{
@@ -100,7 +102,6 @@ namespace Game.Scripts.Managers
 			SetQuestionText(DATA.GetSectionQuestion(_questionNumber));
 			
 			SetPropsForQuestions(question);
-			
 		}
 		
 		private void SetPropsForQuestions(QuestionInfo questionInfo)
@@ -113,8 +114,9 @@ namespace Game.Scripts.Managers
 
 			Color targetCorrectColor = DATA.GetColorByColorInfo(targetObjectColor);
 			int[] objectIndexArrayToSetCorrectColor = new int [actualNumber];
-			
-			ColoredObject[] targetCorrectColoredObjects = GetColoredObjectByShape(shapeToFind);
+
+			ColoredObject[] targetCorrectColoredObjects = new ColoredObject[actualNumber]; 
+			targetCorrectColoredObjects = GetColoredObjectByShape(shapeToFind);
 			
 			objectIndexArrayToSetCorrectColor = GetRandomNumberArray(actualNumber, targetCorrectColoredObjects.Length);
 
@@ -127,7 +129,11 @@ namespace Game.Scripts.Managers
 		private void SetRandomColorForRest(ObjectShape correctObjectShape, ObjectColor correctObjectColor,int randomObjectCount)
 		{
 			int[] randomObjectIndexGroupOne =  new int [randomObjectCount/2];
-			int[] randomObjectIndexGroupTwo =  new int [randomObjectCount/2];;
+			int[] randomObjectIndexGroupTwo =  new int [randomObjectCount/2];
+					
+			ColoredObject[] targetObjectGroupOne;
+			ColoredObject[] targetObjectGroupTwo;
+			
 			ObjectColor[] wrongColors = GetRandomInCorrectColors(correctObjectColor);
 			switch (correctObjectShape)
 			{
@@ -135,17 +141,32 @@ namespace Game.Scripts.Managers
 					randomObjectIndexGroupOne = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Cube).Length);
 					randomObjectIndexGroupTwo = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Sphere).Length);
 					
-					ColoredObject[] targetObjectGroupOne = GetColoredObjectByShape(ObjectShape.Cube);
-					ColoredObject[] targetObjectGroupTwo = GetColoredObjectByShape(ObjectShape.Sphere);
+					targetObjectGroupOne = GetColoredObjectByShape(ObjectShape.Cube);
+					targetObjectGroupTwo = GetColoredObjectByShape(ObjectShape.Sphere);
 					
 					SetObjectGroupsColors(targetObjectGroupOne,randomObjectIndexGroupOne,DATA.GetColorByColorInfo(wrongColors[0]));
 					SetObjectGroupsColors(targetObjectGroupTwo,randomObjectIndexGroupTwo,DATA.GetColorByColorInfo(wrongColors[1]));
 					break;
 				case ObjectShape.Cube:
+					randomObjectIndexGroupOne = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Cube).Length);
+					randomObjectIndexGroupTwo = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Sphere).Length);
 					
+					targetObjectGroupOne = GetColoredObjectByShape(ObjectShape.Pyramid);
+					targetObjectGroupTwo = GetColoredObjectByShape(ObjectShape.Sphere);
+					
+					SetObjectGroupsColors(targetObjectGroupOne,randomObjectIndexGroupOne,DATA.GetColorByColorInfo(wrongColors[0]));
+					SetObjectGroupsColors(targetObjectGroupTwo,randomObjectIndexGroupTwo,DATA.GetColorByColorInfo(wrongColors[1]));
 					break;
-				case ObjectShape.Sphere:
 					
+				case ObjectShape.Sphere:
+					randomObjectIndexGroupOne = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Cube).Length);
+					randomObjectIndexGroupTwo = GetRandomNumberArray(randomObjectCount/2, GetColoredObjectByShape(ObjectShape.Sphere).Length);
+					
+					targetObjectGroupOne = GetColoredObjectByShape(ObjectShape.Pyramid);
+					targetObjectGroupTwo = GetColoredObjectByShape(ObjectShape.Cube);
+					
+					SetObjectGroupsColors(targetObjectGroupOne,randomObjectIndexGroupOne,DATA.GetColorByColorInfo(wrongColors[0]));
+					SetObjectGroupsColors(targetObjectGroupTwo,randomObjectIndexGroupTwo,DATA.GetColorByColorInfo(wrongColors[1]));
 					
 					break;
 				default:

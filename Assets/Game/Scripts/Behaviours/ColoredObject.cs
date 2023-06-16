@@ -31,16 +31,9 @@ namespace Game.Scripts.Behaviours
 		private void SetColorToDefault()
 		{
 			IsColorChanged = false;
-			_renderer.DOKill();
-			_renderer.material.DOColor(GameManager.Instance.DATA.DefaultObjectColor,_materialSwapDuration).SetEase(Ease.Linear);
-		}
-		
-		private void SetColorToDefaultWithoutDelay()
-		{
-			IsColorChanged = false;
 			_renderer.material.color = GameManager.Instance.DATA.DefaultObjectColor;
 		}
-
+		
 		public void SetColor(Color targetColor)
 		{
 			IsColorChanged = true;
