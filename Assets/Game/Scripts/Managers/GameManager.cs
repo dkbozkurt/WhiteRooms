@@ -5,7 +5,6 @@ using Game.Scripts.Behaviours;
 using Game.Scripts.Helpers;
 using Game.Scripts.ScriptableObjects;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
